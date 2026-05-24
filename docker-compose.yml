@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: dataops_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: dataops
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    container_name: dataops_redis
+    ports:
+      - "6379:6379"
+
+  backend:
+    build: ./backend
+    container_name: dataops_backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
