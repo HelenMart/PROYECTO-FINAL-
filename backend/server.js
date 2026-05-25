@@ -1,6 +1,7 @@
 const express = require("express");
 const iniciarHealthCheck = require("./cron/healthCheck");
 const metricasRoutes = require("./routes/metricas.routes");
+const iniciarAlertas = require("./cron/alerts");
 const conexionesRoutes = require("./routes/conexiones.routes");
 const iniciarSlowQueries = require("./cron/slowQueries");
 const pool = require("./db");
@@ -12,6 +13,7 @@ app.use("/conexiones", conexionesRoutes);
 app.use("/metricas", metricasRoutes);
 iniciarHealthCheck();
 iniciarSlowQueries();
+iniciarAlertas();
 app.get("/", (req, res) => {
     res.json({
         message: "DataOps Control Center API funcionando"
