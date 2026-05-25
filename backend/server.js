@@ -1,5 +1,6 @@
 const express = require("express");
 const iniciarHealthCheck = require("./cron/healthCheck");
+const metricasRoutes = require("./routes/metricas.routes");
 const conexionesRoutes = require("./routes/conexiones.routes");
 const iniciarSlowQueries = require("./cron/slowQueries");
 const pool = require("./db");
@@ -8,6 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use("/conexiones", conexionesRoutes);
+app.use("/metricas", metricasRoutes);
 iniciarHealthCheck();
 iniciarSlowQueries();
 app.get("/", (req, res) => {
