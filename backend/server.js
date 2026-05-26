@@ -1,5 +1,6 @@
 const express = require("express");
 const iniciarHealthCheck = require("./cron/healthCheck");
+const consultasRoutes = require("./routes/consultas");
 const metricasRoutes = require("./routes/metricas.routes");
 const iniciarAlertas = require("./cron/alerts");
 const motoresRoutes = require("./routes/motores");
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/conexiones", conexionesRoutes);
 app.use("/metricas", metricasRoutes);
 app.use("/motores", motoresRoutes);
+app.use("/consultas-lentas", consultasRoutes);
 iniciarHealthCheck();
 iniciarSlowQueries();
 iniciarAlertas();
