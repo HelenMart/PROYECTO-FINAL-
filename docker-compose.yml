@@ -24,6 +24,12 @@ services:
     container_name: dataops_backend
     ports:
       - "3000:3000"
+    volumes:
+      - ./backups:/app/backups
+      - ./cloud_backups:/app/cloud_backups
     depends_on:
       - postgres
       - redis
+      
+
+   
