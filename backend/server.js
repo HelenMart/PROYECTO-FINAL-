@@ -1,9 +1,11 @@
+const cors = require("cors");
 const express = require("express");
 const iniciarHealthCheck = require("./cron/healthCheck");
 const consultasRoutes = require("./routes/consultas");
 const concurrenciaRoutes = require("./routes/concurrencia");
 const metricasRoutes = require("./routes/metricas.routes");
 const iniciarAlertas = require("./cron/alerts");
+const alertasRoutes = require("./routes/alertas");
 const motoresRoutes = require("./routes/motores");
 const iniciarBackups = require("./cron/backups");
 const conexionesRoutes = require("./routes/conexiones.routes");
@@ -11,11 +13,12 @@ const iniciarSlowQueries = require("./cron/slowQueries");
 const pool = require("./db");
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 app.use("/conexiones", conexionesRoutes);
 app.use("/metricas", metricasRoutes);
 app.use("/motores", motoresRoutes);
+app.use("/alertas", alertasRoutes);
 app.use("/concurrencia", concurrenciaRoutes);
 app.use("/consultas-lentas", consultasRoutes);
 iniciarHealthCheck();
